@@ -6,11 +6,9 @@ using System.Threading.Tasks;
 
 namespace Crypto_Clipboard
 {
-    class CryptoTypes
+    enum CryptoTypes
     {
-        public static readonly string BTC = "";
-        public static readonly string ETHEREUM = "";
-
-        public CryptoTypes() { }
+        BTC,
+        ETH
     }
 }

